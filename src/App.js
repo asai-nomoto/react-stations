@@ -12,20 +12,25 @@ export const App = () => {
   const [dogUrl, setdogUrl] = useState(
     'https://images.dog.ceo/breeds/mountain-bernese/n02107683_5699.jpg',
   )
+  const changeDog = () => {
+    fetch('https://dog.ceo/api/breeds/image/random')
+      .then(response => response.json())
+      .then(
+        result => {
+          setdogUrl(result.message)
+        },
+        error => {
+          console.log(error)
+        },
+      )
+  }
   return (
     <>
       <header>Dogアプリ</header>
       <p>犬の画像を表示するサイトです</p>
       <img src={dogUrl} alt="いぬの画像" />
-      <button
-        onClick={() =>
-          setdogUrl(
-            'https://images.dog.ceo/breeds/stbernard/n02109525_2810.jpg',
-          )
-        }
-      >
-        更新
-      </button>
+      <br />
+      <button onClick={changeDog}>更新</button>
     </>
   )
 }
